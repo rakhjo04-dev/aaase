@@ -1,0 +1,2 @@
+PS C:\Users\rakhj\ai_agent_lab> curl http://localhost:8000/health
+{"status":"ok","stage":5,"model":"gpt-4o-mini","mock":true}
