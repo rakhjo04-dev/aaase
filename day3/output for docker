@@ -1,0 +1,86 @@
+PS C:\Users\rakhj\ai_agent_lab> docker --version
+Docker version 29.6.2, build dfc4efb
+PS C:\Users\rakhj\ai_agent_lab> docker build -t ai-agent-enterprise .
+[+] Building 64.0s (10/10) FINISHED                          docker:desktop-linux
+ => [internal] load build definition from Dockerfile                         0.1s
+ => => transferring dockerfile: 258B                                         0.0s
+ => [internal] load metadata for docker.io/library/python:3.11-slim         10.4s
+ => [auth] library/python:pull token for registry-1.docker.io                0.0s
+ => [internal] load .dockerignore                                            0.0s
+ => => transferring context: 2B                                              0.0s
+ => [1/4] FROM docker.io/library/python:3.11-slim@sha256:db3ff2e1800a8581e  15.7s
+ => => resolve docker.io/library/python:3.11-slim@sha256:db3ff2e1800a8581e2  0.0s
+ => => sha256:c89b9f64c028c19ba92e195d7589d914b9cd1fc69f3c3dfeb 248B / 248B  0.3s
+ => => sha256:6b265b8eae4a26a263eb55546aa430c1eef37032a7c 14.42MB / 14.42MB  8.5s
+ => => sha256:9775d166087aba0afe5ba9a88859c04c08090e82ae218 1.29MB / 1.29MB  5.8s
+ => => sha256:062e450697faa5f02a3a74eba9864ee4d79bc9cfbd 29.78MB / 29.78MB  14.2s
+ => => extracting sha256:062e450697faa5f02a3a74eba9864ee4d79bc9cfbd65769fc6  0.7s
+ => => extracting sha256:9775d166087aba0afe5ba9a88859c04c08090e82ae218742d0  0.1s
+ => => extracting sha256:6b265b8eae4a26a263eb55546aa430c1eef37032a7cd86393d  0.4s
+ => => extracting sha256:c89b9f64c028c19ba92e195d7589d914b9cd1fc69f3c3dfeb9  0.0s
+ => [internal] load build context                                            0.1s
+ => => transferring context: 1.09MB                                          0.1s
+ => [2/4] WORKDIR /app                                                       0.1s
+ => [3/4] COPY . /app                                                        0.0s
+ => [4/4] RUN pip install --no-cache-dir langchain-openai langgraph python  32.8s
+ => exporting to image                                                       4.7s
+ => => exporting layers                                                      3.4s
+ => => exporting manifest sha256:a87b60c6d157c8ceb1f667f47fb22cd41855e44172  0.0s
+ => => exporting config sha256:b008a52ebc50925841d14672df3eab85ce8f089c143d  0.0s
+ => => exporting attestation manifest sha256:f0ba1b91f0d9413d18a5972399d8c3  0.0s
+ => => exporting manifest list sha256:aa18f049455e8bd4f0f99f5873f8ef364d671  0.0s
+ => => naming to docker.io/library/ai-agent-enterprise:latest                0.0s
+ => => unpacking to docker.io/library/ai-agent-enterprise:latest             1.2s
+PS C:\Users\rakhj\ai_agent_lab> ^C
+PS C:\Users\rakhj\ai_agent_lab> docker run -d -p 8000:8000 -e MOCK=1 -e LAB_STAGE=5 --name agent_container ai-agent-enterprise
+e7bdb009595c0b3ac6d7d4527c8ac1bd6cb8c2209d6535ec3283678a5933b3db
+PS C:\Users\rakhj\ai_agent_lab> curl http://localhost:8000/health
+{"status":"ok","stage":5,"model":"gpt-4o-mini","mock":true}
+PS C:\Users\rakhj\ai_agent_lab> 
+ *  History restored 
+
+PS C:\Users\rakhj\ai_agent_lab> docker build -t ai-agent-enterprise .
+ERROR: failed to connect to the docker API at npipe:////./pipe/dockerDesktopLinuxEngine; check if the path is correct and if the daemon is running: open //./pipe/dockerDesktopLinuxEngine: The system cannot find the file specified.
+PS C:\Users\rakhj\ai_agent_lab> docker build -t ai-agent-enterprise .
+[+] Building 7.6s (10/10) FINISHED                           docker:desktop-linux
+ => [internal] load build definition from Dockerfile                         0.1s
+ => => transferring dockerfile: 258B                                         0.1s
+ => [internal] load metadata for docker.io/library/python:3.11-slim          7.3s
+ => [auth] library/python:pull token for registry-1.docker.io                0.0s
+ => [internal] load .dockerignore                                            0.0s
+ => => transferring context: 2B                                              0.0s
+ => [1/4] FROM docker.io/library/python:3.11-slim@sha256:db3ff2e1800a8581e2  0.0s
+ => => resolve docker.io/library/python:3.11-slim@sha256:db3ff2e1800a8581e2  0.0s
+ => [internal] load build context                                            0.0s
+ => => transferring context: 703B                                            0.0s
+ => CACHED [2/4] WORKDIR /app                                                0.0s
+ => CACHED [3/4] COPY . /app                                                 0.0s
+ => CACHED [4/4] RUN pip install --no-cache-dir langchain-openai langgraph   0.0s
+ => exporting to image                                                       0.1s
+ => => exporting layers                                                      0.0s
+ => => exporting manifest sha256:a87b60c6d157c8ceb1f667f47fb22cd41855e44172  0.0s
+ => => exporting config sha256:b008a52ebc50925841d14672df3eab85ce8f089c143d  0.0s
+ => => exporting attestation manifest sha256:105099682964f4f871c5e57d2666af  0.0s
+ => => exporting manifest list sha256:0110a32e616e36c8980903b95d2bf6a0d6569  0.0s
+ => => naming to docker.io/library/ai-agent-enterprise:latest                0.0s
+ => => unpacking to docker.io/library/ai-agent-enterprise:latest             0.0s
+PS C:\Users\rakhj\ai_agent_lab> docker run -d -p 8000:8000 -e MOCK=1 -e LAB_STAGE=5 --name agent_container ai-agent-enterprise
+
+What's next:
+    Debug this container error with Gordon → docker ai "help me fix this container error"
+docker: Error response from daemon: Conflict. The container name "/agent_container" is already in use by container "e7bdb009595c0b3ac6d7d4527c8ac1bd6cb8c2209d6535ec3283678a5933b3db". You have to remove (or rename) that container to be able to reuse that name.
+
+Run 'docker run --help' for more information
+PS C:\Users\rakhj\ai_agent_lab> curl http://localhost:8000/health
+curl: (7) Failed to connect to localhost:8000 after 2247 ms: Could not connect to server
+PS C:\Users\rakhj\ai_agent_lab> curl http://localhost:8000/health
+curl: (7) Failed to connect to localhost:8000 after 2247 ms: Could not connect to server
+PS C:\Users\rakhj\ai_agent_lab> curl http://localhost:8000/health
+curl: (7) Failed to connect to localhost:8000 after 2232 ms: Could not connect to server
+PS C:\Users\rakhj\ai_agent_lab> docker rm -f agent_container
+agent_container
+PS C:\Users\rakhj\ai_agent_lab> docker run -d -p 8000:8000 -e MOCK=1 -e LAB_STAGE=5 --name agent_container ai-agent-enterprise
+8c2d904762d070c74535793308671275a7bd199463edee40b9cfa97ef3f8e322
+PS C:\Users\rakhj\ai_agent_lab> curl http://localhost:8000/health
+{"status":"ok","stage":5,"model":"gpt-4o-mini","mock":true}
+PS C:\Users\rakhj\ai_agent_lab> 
